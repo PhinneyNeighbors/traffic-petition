@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petition: Traffic Signal at N 80th St &amp; Dayton Ave · Seattle</title>
+  <meta name="description" content="We are asking the Seattle Department of Transportation to install a traffic signal at North 80th St and Dayton Avenue to protect the Phinney Ridge neighborhood.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #f7f7f5;
+      min-height: 100vh;
+    }
+
+    /* ── Layout ── */
+    .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+    /* ── Header ── */
+    .header { border-left: 3px solid #2C3E7A; padding-left: 1.25rem; margin-bottom: 2rem; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
+    .petition-title { font-size: 26px; font-weight: 600; line-height: 1.3; color: #111; margin-bottom: 0.5rem; }
+    .petition-sub { font-size: 14px; color: #666; }
+
+    /* ── Counter ── */
+    .counter-card {
+      background: #fff;
+      border: 0.5px solid #e0e0da;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .counter-number { font-size: 36px; font-weight: 600; color: #2C3E7A; }
+    .counter-label { font-size: 15px; color: #555; }
+    .counter-goal { font-size: 13px; color: #aaa; margin-left: auto; }
+    .progress-bar { width: 100%; height: 5px; background: #e8e8e4; border-radius: 3px; margin-bottom: 2rem; overflow: hidden; }
+    .progress-fill { height: 100%; background: #2C3E7A; border-radius: 3px; transition: width 0.6s ease; }
+
+    /* ── Body text ── */
+    .petition-body { margin-bottom: 1.5rem; }
+    .petition-body p { margin-bottom: 1rem; font-size: 15px; color: #333; }
+    .petition-body strong { font-weight: 600; color: #111; }
+
+    /* ── Asks box ── */
+    .asks {
+      background: #f0f2f8;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .asks-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #2C3E7A; margin-bottom: 0.75rem; }
+    .asks ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .asks li { font-size: 14px; color: #333; padding-left: 1.5rem; position: relative; line-height: 1.5; }
+    .asks li::before { content: "→"; position: absolute; left: 0; color: #2C3E7A; font-weight: 600; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 0.5px solid #e0e0da; margin: 2rem 0; }
+
+    /* ── Sign form ── */
+    .sign-heading { font-size: 18px; font-weight: 600; margin-bottom: 0.35rem; color: #111; }
+    .sign-sub { font-size: 13px; color: #777; margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: 12px; font-weight: 500; color: #555; }
+    input[type="text"], input[type="email"] {
+      font-size: 14px;
+      font-family: inherit;
+      padding: 9px 12px;
+      border: 0.5px solid #d0d0ca;
+      border-radius: 8px;
+      background: #fff;
+      color: #111;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+    }
+    input:focus { outline: none; border-color: #2C3E7A; box-shadow: 0 0 0 3px rgba(44,62,122,0.1); }
+    input.error { border-color: #c0392b; }
+
+    /* ── Signature pad ── */
+    .sig-wrap { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1.25rem; }
+    .sig-canvas {
+      width: 100%;
+      height: 90px;
+      border: 0.5px solid #d0d0ca;
+      border-radius: 8px;
+      background: #fff;
+      cursor: crosshair;
+      display: block;
+      touch-action: none;
+    }
+    .sig-canvas.error { border-color: #c0392b; }
+    .sig-footer { display: flex; justify-content: space-between; align-items: center; }
+    .sig-hint { font-size: 11px; color: #aaa; }
+    .clear-btn {
+      font-size: 12px; color: #888; background: none; border: none;
+      cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+      font-family: inherit;
+    }
+    .clear-btn:hover { color: #333; }
+
+    /* ── Submit ── */
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      background: #2C3E7A;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .submit-btn:hover:not(:disabled) { opacity: 0.88; }
+    .submit-btn:active:not(:disabled) { transform: scale(0.99); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .privacy-note { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
+
+    /* ── Success ── */
+    .success-msg {
+      display: none;
+      background: #eafaf1;
+      border: 0.5px solid #a9dfbf;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 14px;
+      color: #1e6b3a;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .error-msg {
+      display: none;
+      background: #fdf0ee;
+      border: 0.5px solid #f0b8b0;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 14px;
+      color: #922b21;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ── Signers list ── */
+    .signers-section { margin-top: 2.5rem; }
+    .signers-heading { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #999; margin-bottom: 0.75rem; }
+    .signer-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0;
+      border-bottom: 0.5px solid #ebebea;
+    }
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #e8ecf5; display: flex; align-items: center;
+      justify-content: center; font-size: 11px; font-weight: 600;
+      color: #2C3E7A; flex-shrink: 0;
+    }
+    .signer-name { font-size: 14px; color: #222; font-weight: 500; }
+    .signer-address { font-size: 12px; color: #888; }
+    .signer-time { font-size: 11px; color: #bbb; margin-left: auto; white-space: nowrap; }
+
+    /* ── Footer ── */
+    .site-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid #e0e0da;
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .petition-title { font-size: 22px; }
+      .counter-number { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+<main class="page" role="main">
+
+  <header class="header">
+    <p class="eyebrow">Community petition &middot; Seattle, WA</p>
+    <h1 class="petition-title">Install a traffic signal at N 80th St &amp; Dayton Ave</h1>
+    <p class="petition-sub">Addressed to the Seattle Department of Transportation &amp; Seattle City Council</p>
+  </header>
+
+  <div class="counter-card">
+    <span class="counter-number" id="count">—</span>
+    <span class="counter-label" id="count-label">loading…</span>
+    <span class="counter-goal">Goal: 100 signatures</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+  <section class="petition-body" aria-label="Petition text">
+    <p>We, the undersigned residents of the <strong>Phinney Ridge neighborhood of Seattle</strong>, are writing together to demand urgent action to address a serious and ongoing public safety hazard at the intersection of <strong>North 80th St and Dayton Avenue</strong>.</p>
+    <p>This intersection has been the site of repeated traffic accidents and near-misses that endanger our neighbors, our children, and anyone who passes through. Two conditions combine to make it especially dangerous:</p>
+    <ul style="margin: 0.5rem 0 1rem 1.5rem; display:flex; flex-direction:column; gap:6px;">
+      <li style="font-size:15px; color:#333; line-height:1.6;">The stop sign on Dayton Avenue is poorly visible to approaching drivers, resulting in frequent failures to yield.</li>
+      <li style="font-size:15px; color:#333; line-height:1.6;">The downhill grade east-bound on N 80th St causes vehicles to arrive at speed, leaving little time to brake safely.</li>
+    </ul>
+    <p>Our neighbors have documented <strong>[NUMBER] incidents</strong> at this location, including collisions, property damage, and dangerous near-misses. This documentation — including dates, descriptions, photographs, and police reports — is available and will be submitted alongside this petition.</p>
+    <p>We share this neighborhood and care deeply about the safety of everyone who lives and travels through it. We hope the city will act with us, before a serious injury occurs.</p>
+  </section>
+
+  <div class="asks">
+    <p class="asks-label">We are asking SDOT to</p>
+    <ul>
+      <li>Conduct a formal traffic signal warrant study, with particular attention to Warrant 7 (Crash Experience) under the MUTCD</li>
+      <li>Install a traffic signal at this intersection if warranted</li>
+      <li>Implement interim safety measures immediately — such as improved signage, high-visibility markings, or a flashing warning beacon — while any study is underway</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <section aria-label="Sign the petition">
+    <h2 class="sign-heading">Add your signature</h2>
+    <p class="sign-sub">By signing below, I confirm that I am a resident of or frequent visitor to the area around North 80th St and Dayton Ave and I support this petition. Your address will be submitted to the city alongside it.</p>
+
+    <div class="form-row">
+      <div class="form-group form-full">
+        <label for="fullname">Full name *</label>
+        <input type="text" id="fullname" placeholder="Jane Smith" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="address">Street address *</label>
+        <input type="text" id="address" placeholder="1234 NE Example St" autocomplete="street-address">
+      </div>
+      <div class="form-group">
+        <label for="email">Email (optional, not shared)</label>
+        <input type="email" id="email" placeholder="jane@email.com" autocomplete="email">
+      </div>
+    </div>
+
+    <div class="sig-wrap">
+      <label>Signature *</label>
+      <canvas class="sig-canvas" id="sigCanvas"></canvas>
+      <div class="sig-footer">
+        <span class="sig-hint">Draw your signature above with your mouse or finger</span>
+        <button class="clear-btn" onclick="clearSig()" type="button">Clear</button>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitSignature()" type="button">Sign the petition</button>
+    <p class="privacy-note">Your information is only used for this petition and will not be sold or shared.</p>
+    <div class="success-msg" id="successMsg">✓ Thank you for signing! Your signature has been added to the petition.</div>
+    <div class="error-msg" id="errorMsg">Something went wrong. Please try again or contact the organizer.</div>
+  </section>
+
+  <section class="signers-section" aria-label="Recent signatures">
+    <p class="signers-heading" id="signers-heading">Recent signatures</p>
+    <div id="signersContainer"></div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Organized by a resident of Phinney Ridge, Seattle &nbsp;·&nbsp; Questions? Email <a href="mailto:[YOUR EMAIL]" style="color:#2C3E7A;">[YOUR EMAIL]</a></p>
+  </footer>
+
+</main>
+
+<script>
+  // ── CONFIGURATION ── Replace this URL after deploying your Apps Script ──
+  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE";
+
+  // ── Signature canvas ──
+  const canvas = document.getElementById('sigCanvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false, hasSig = false;
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.strokeStyle = '#2C3E7A';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  canvas.addEventListener('mousedown', e => { drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+  canvas.addEventListener('mousemove', e => { if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; });
+  canvas.addEventListener('mouseup', () => drawing = false);
+  canvas.addEventListener('mouseleave', () => drawing = false);
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }, { passive: false });
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); hasSig = true; }, { passive: false });
+  canvas.addEventListener('touchend', () => drawing = false);
+
+  function clearSig() { resizeCanvas(); hasSig = false; canvas.classList.remove('error'); }
+
+  // ── Local signers list (shown immediately, before sheet loads) ──
+  const localSigners = [];
+
+  function timeAgo(date) {
+    const s = Math.floor((Date.now() - date) / 1000);
+    if (s < 60) return 'just now';
+    if (s < 3600) return Math.floor(s/60) + 'm ago';
+    return Math.floor(s/3600) + 'h ago';
+  }
+
+  function initials(name) {
+    return name.trim().split(/\s+/).map(w => w[0]).join('').slice(0,2).toUpperCase();
+  }
+
+  function renderSigners(sheetCount) {
+    const container = document.getElementById('signersContainer');
+    const heading = document.getElementById('signers-heading');
+    heading.textContent = (sheetCount || localSigners.length) + ' signature' + ((sheetCount || localSigners.length) !== 1 ? 's' : '');
+
+    container.innerHTML = localSigners.slice().reverse().map(s => `
+      <div class="signer-row">
+        <div class="avatar">${initials(s.name)}</div>
+        <div>
+          <div class="signer-name">${s.name}</div>
+          <div class="signer-address">${s.address}</div>
+        </div>
+        <span class="signer-time">${timeAgo(s.time)}</span>
+      </div>
+    `).join('');
+  }
+
+  function updateCounter(n) {
+    const countEl = document.getElementById('count');
+    const labelEl = document.getElementById('count-label');
+    const pct = Math.min(Math.round((n / 100) * 100), 100);
+    countEl.textContent = n;
+    labelEl.textContent = 'neighbor' + (n !== 1 ? 's have' : ' has') + ' signed';
+    document.getElementById('progress').style.width = pct + '%';
+  }
+
+  // ── Fetch live count from sheet ──
+  async function fetchCount() {
+    try {
+      const res = await fetch(APPS_SCRIPT_URL);
+      const data = await res.json();
+      if (typeof data.count === 'number') updateCounter(data.count);
+    } catch (_) {}
+  }
+  fetchCount();
+
+  // ── Submit ──
+  async function submitSignature() {
+    const name = document.getElementById('fullname').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    document.getElementById('fullname').classList.toggle('error', !name);
+    document.getElementById('address').classList.toggle('error', !address);
+    canvas.classList.toggle('error', !hasSig);
+    if (!name || !address || !hasSig) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+    document.getElementById('errorMsg').style.display = 'none';
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, address, email, signature: hasSig })
+      });
+
+      localSigners.push({ name, address, time: Date.now() });
+      const currentCount = parseInt(document.getElementById('count').textContent) || 0;
+      updateCounter(currentCount + 1);
+      renderSigners(currentCount + 1);
+
+      document.getElementById('successMsg').style.display = 'block';
+      btn.style.display = 'none';
+      document.getElementById('fullname').value = '';
+      document.getElementById('address').value = '';
+      document.getElementById('email').value = '';
+      clearSig();
+
+    } catch (_) {
+      btn.disabled = false;
+      btn.textContent = 'Sign the petition';
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  }
+
+  // ── Init ──
+  renderSigners(0);
+</script>
+</body>
+</html>
