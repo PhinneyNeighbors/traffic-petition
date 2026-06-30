@@ -206,13 +206,15 @@
 
   <section class="petition-body" aria-label="Petition text">
     <p style="font-size:15px; color:#333; margin-bottom:1.25rem;">Dear City Council Member for District 6, Dan Strauss &amp; members of the Seattle Department of Transportation (SDOT),</p>
-    <p>We, the undersigned residents of the <strong>Phinney Ridge neighborhood of Seattle</strong>, are writing together to demand urgent action to address a serious and ongoing public safety hazard at the intersection of <strong>North 80th St and Dayton Avenue</strong>.</p>
-    <p>This intersection has been the site of repeated traffic accidents and near-misses that endanger our neighbors, our children, and anyone who passes through. Two conditions combine to make it especially dangerous:</p>
+    <p>We, the undersigned residents of the <strong>Phinney Ridge neighborhood of Seattle</strong>, are writing together to ask that action be taken to address a serious and ongoing public safety hazard at the intersection of <strong>North 80th St and Dayton Avenue</strong>.</p>
+    <p>This intersection has been the site of repeated traffic accidents and near-misses that endanger our neighbors, our children, and anyone who passes through. These conditions combine to make it especially dangerous:</p>
     <ul style="margin: 0.5rem 0 1rem 1.5rem; display:flex; flex-direction:column; gap:6px;">
       <li style="font-size:15px; color:#333; line-height:1.6;">The stop sign on Dayton Avenue is poorly visible to approaching drivers, resulting in frequent failures to yield.</li>
-      <li style="font-size:15px; color:#333; line-height:1.6;">The downhill grade east-bound on N 80th St causes vehicles to arrive at speed, leaving little time to brake safely.</li>
+      <li style="font-size:15px; color:#333; line-height:1.6;">The downhill grade east-bound on N 80th St causes braking to be misjudged, so vehicles arrive at the intersection at speed.</li>
+      <li style="font-size:15px; color:#333; line-height:1.6;">Cars often speed above the speed limit on 80th.</li>
+      <li style="font-size:15px; color:#333; line-height:1.6;">The intersection has constant pedestrian traffic.</li>
     </ul>
-    <p>Our neighbors have documented the following <strong>4 incidents</strong> at this location. Security camera footage and additional records are available and will be submitted alongside this petition.</p>
+    <p>Our neighbors have documented the following <strong>5 incidents</strong> at this location. Security camera footage and additional records are available and will be submitted alongside this petition.</p>
   </section>
 
   <div style="background:#fff; border:0.5px solid #e0e0da; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:2rem;">
@@ -248,6 +250,21 @@
         <p style="font-size:11px; color:#aaa;">Security camera footage · June 7, 2026 · N 80th St &amp; Dayton Ave</p>
       </div>
 
+      <div style="border-top: 0.5px solid #e8e8e4; padding-top: 1.25rem;">
+        <video controls preload="metadata" style="width:100%; border-radius:8px; border:0.5px solid #e0e0da; margin-bottom:0.75rem; display:block;">
+          <source src="incident-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p style="font-size:13px; font-weight:600; color:#555; margin-bottom:0.35rem;">June 27, 2026</p>
+        <p style="font-size:14px; color:#333; line-height:1.6; margin-bottom:0.35rem;">A near-miss involving three parties at once: a car slowing abruptly to turn onto Dayton, a truck attempting to cross from Dayton, and pedestrians crossing simultaneously. A second car swerved into the oncoming lane on N 80th to avoid the truck, narrowly avoiding a collision.</p>
+        <p style="font-size:11px; color:#aaa;">Security camera footage · June 27, 2026 · N 80th St &amp; Dayton Ave</p>
+      </div>
+
+      <div style="border-top: 0.5px solid #e8e8e4; padding-top: 1.25rem;">
+        <p style="font-size:13px; font-weight:600; color:#555; margin-bottom:0.35rem;">Several undocumented near-misses</p>
+        <p style="font-size:14px; color:#333; line-height:1.6;">Neighbors have also witnessed, though not recorded on camera, numerous instances of cyclists and pedestrians narrowly avoiding collisions while crossing N 80th St at Dayton Ave.</p>
+      </div>
+
     </div>
   </div>
 
@@ -258,7 +275,7 @@
   <div class="asks">
     <p class="asks-label">We are asking SDOT to</p>
     <ul>
-      <li>Conduct a formal traffic signal warrant study, with particular attention to Warrant 7 (Crash Experience) under the MUTCD</li>
+      <li>Conduct a formal traffic signal warrant study, with particular attention to Warrant 7 (Crash Experience) under the <a href="https://mutcd.fhwa.dot.gov/" target="_blank" style="color:#2C3E7A; text-decoration:underline;">MUTCD</a></li>
       <li>Install a traffic signal at this intersection if warranted</li>
       <li>Implement interim safety measures immediately — such as improved signage, high-visibility markings, or a flashing warning beacon — while any study is underway</li>
     </ul>
@@ -287,7 +304,7 @@
 
     <div class="form-group form-full" style="margin-bottom: 12px;">
       <label for="comments">Additional comments (optional)</label>
-      <textarea id="comments" rows="3" placeholder="Share your experience with this intersection, or anything else you'd like the city to know…" style="font-size:14px; font-family:inherit; padding:9px 12px; border:0.5px solid #d0d0ca; border-radius:8px; background:#fff; color:#111; width:100%; resize:vertical; transition: border-color 0.15s, box-shadow 0.15s; line-height:1.6;"></textarea>
+      <textarea id="comments" rows="3" placeholder="Share your experience with this intersection, or anything else you'd like the city to know. If you have any footage, please note this and we can reach out to add to this petition." style="font-size:14px; font-family:inherit; padding:9px 12px; border:0.5px solid #d0d0ca; border-radius:8px; background:#fff; color:#111; width:100%; resize:vertical; transition: border-color 0.15s, box-shadow 0.15s; line-height:1.6;"></textarea>
     </div>
 
     <div class="sig-wrap">
@@ -367,7 +384,7 @@
     const labelEl = document.getElementById('count-label');
     const pct = Math.min(Math.round((n / 20) * 100), 100);
     countEl.textContent = n;
-    labelEl.textContent = 'neighbor' + (n !== 1 ? 's have' : ' has') + ' signed';
+    labelEl.textContent = 'neighbor' + (n !== 1 ? 's have' : ' has') + ' signed 🎉';
     document.getElementById('progress').style.width = pct + '%';
   }
 
